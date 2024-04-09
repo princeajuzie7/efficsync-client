@@ -1,0 +1,252 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: transparent;
+
+  font-family: SF Pro Text, Helvetica Neue, sans-serif;
+}
+
+body {
+  background: #f8f7fd;
+}
+
+/* default styles */
+
+::-webkit-scrollbar {
+  margin-top: 2px;
+  width: 6px;
+  height: 8px;
+  z-index: 9999;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #ffff;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #817c7c9a;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #817c7c9a;
+  width: 4px;
+}
+
+[data-v-39dbc6e5] .btn {
+  margin: 0.25rem 1rem 1rem;
+  display: flex;
+  align-items: center;
+  border-radius: 0.5rem;
+  padding: 0.25rem;
+  font-size: 13px;
+  font-weight: 700;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+[data-v-39dbc6e5] .btn:hover,
+[data-v-39dbc6e5] .btn:focus {
+  flex-shrink: 1;
+}
+
+[data-v-39dbc6e5] .btn span {
+  min-width: 0px;
+  flex-grow: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+[data-v-39dbc6e5] .btn svg {
+  flex-shrink: 0;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.grid[data-v-20eef978] {
+  container-name: grid;
+  container-type: inline-size;
+  grid-auto-rows: 1fr;
+  grid-auto-columns: 1fr;
+}
+
+.item[data-v-20eef978] {
+  border-radius: 0.25rem;
+}
+
+.item-inner[data-v-20eef978] {
+  min-height: 100%;
+  border-radius: 0.25rem;
+  padding-top: 100%;
+}
+
+.day-label[data-v-20eef978],
+.month-label[data-v-20eef978] {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  line-height: 1;
+  --tw-text-opacity: 1;
+  color: rgb(92 92 102 / var(--tw-text-opacity));
+  align-self: center;
+  justify-self: center;
+}
+
+.month-label[data-v-20eef978] {
+  min-width: 0px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@container grid (max-width: 510px) {
+  .day-label[data-v-20eef978] {
+    display: none;
+  }
+}
+
+.dashboards-grid-drag {
+  display: none;
+}
+
+.dashboards-grid.muuri-active .dashboards-grid-drag {
+  display: block;
+}
+
+.dashboards-grid.muuri-active .dashboards-item {
+  position: absolute;
+  z-index: 1;
+  will-change: transform;
+}
+
+.dashboards-item {
+  padding: 8px;
+}
+
+.dashboards-grid.muuri-active .dashboards-item.muuri-item-positioning {
+  z-index: 2;
+}
+
+.dashboards-grid.muuri-active .dashboards-item.muuri-item-dragging,
+.dashboards-grid.muuri-active .dashboards-item.muuri-item-releasing {
+  z-index: 9999;
+}
+
+.dashboards-grid.muuri-active .dashboards-item.muuri-item-dragging {
+  cursor: move;
+}
+
+.dashboards-grid.muuri-active .dashboards-item.muuri-item-hidden {
+  z-index: 0;
+}
+
+.dashboards-item-placeholder {
+  border-radius: 1rem;
+  border-width: 1px;
+  border-style: dashed;
+  --tw-border-opacity: 1;
+  border-color: rgb(216 221 239 / var(--tw-border-opacity));
+  background-color: #edeef733;
+}
+
+.animate-fade-from-bottom {
+  animation: fadeFromBottom 0.75s ease-in-out;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  padding-top: 20px;
+}
+
+.muuri-item {
+  touch-action: auto !important;
+}
+
+.dashboards-grid {
+  touch-action: pan-y !important;
+}
+
+.dragging {
+  cursor: grabbing;
+}
+
+@keyframes bounce {
+  0%,
+  to {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+
+  50% {
+    transform: none;
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+.animate-bounce {
+  animation: bounce 1s infinite;
+}
+
+@keyframes fadeFromBottom {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-fade-from-bottom {
+  animation: fadeFromBottom 0.75s ease-in-out;
+}
+
+@keyframes fadeFromTop {
+  0% {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-fade-from-top {
+  animation: fadeFromTop 0.35s ease-in-out;
+}
+
+@keyframes ping {
+  75%,
+  to {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.animate-ping {
+  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
