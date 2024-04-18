@@ -5,3 +5,4 @@ export * from "@/components/dashboard/hero/Herosection";
 export * from "@/components/dashboard/whatsonyourmind/WhatsOnYourMind";
 export * from "@/components/dashboard/Welcome/Welcome";
 export * from "@/components/dashboard/draggable/DashboardDraggable";
+export * from "@/components/preline/Preline";
