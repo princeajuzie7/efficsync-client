@@ -404,30 +404,7 @@ strokeLinejoin="round"
 <div className=" bg-white border border-gray-200 rounded-xl shadow-sm">
           <div className="p-4 sm:p-7">
             <div className="text-center">
-            <button onClick={() => enqueueSnackbar({
-              message: "'That was easy!'",
-              
-              // variant: "success",
-              action: key => (
-                    <button onClick={() => closeSnackbar(key)}> <svg
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      className=""
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-  
-    >
-      <path
-        d="M21 21l-9-9m0 0L3 3m9 9l9-9m-9 9l-9 9"
-        stroke="#fff"
-        strokeWidth={2}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg></button>
-                ),
-            })}>Show snackbar</button>
+
               <h1 className="block text-2xl font-bold text-gray-800">
                 Sign up
               </h1>
