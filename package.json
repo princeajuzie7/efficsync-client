@@ -17,6 +17,7 @@
     "@tailwindcss/line-clamp": "^0.4.4",
     "@tailwindcss/typography": "^0.5.10",
     "axios": "^1.6.8",
+    "cheerio": "1.0.0-rc.12",
     "muuri": "^0.9.5",
     "next": "14.1.2",
     "notistack": "^3.0.1",

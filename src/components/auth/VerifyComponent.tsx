@@ -38,9 +38,13 @@ const router = useRouter()
     } catch (error: any) {
       console.log(error)
       setLoading(false)
-     return setError(error?.response?.data.message)
+      setTimeout(() => {
+        
+          setError(error?.response?.data.message)
+      }, 200);
     }
-   }
+    }
+    
 
 
    verifyEmail()
