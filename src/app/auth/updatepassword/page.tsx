@@ -1,21 +1,101 @@
+"use client"
 import React from "react";
 import Link from "next/link";
-export default function page() {
+import { AuthInterface, RegexInterface, RegexError } from "@/types";
+import { EMAIL_REGEX, PASSWORD_REGEX, apiResponse } from "@/utils";
+import { SnackbarProvider, enqueueSnackbar, closeSnackbar } from "notistack";
+import { useSearchParams } from "next/navigation";
+
+
+export default function Page() {
+
+    const params = useSearchParams();
+    const Token = params.get("token");
+    const [formData, setFormdata] = React.useState({
+      password: "",
+      confirmpassword: "",
+    });
+  
+    
+  const [loading, setLoading] = React.useState<boolean>(false);
+
+    const [errorMsg, seterrorMsg] = React.useState({
+      password: "",
+      confirmpassword: "",
+    });
+
+    const [confirmpassword, setConfirmpassword] = React.useState("");
+    const handleInputChange = (Event: React.ChangeEvent<HTMLInputElement>) => {
+      const { name, value } = Event.target;
+
+      setFormdata({
+        ...formData,
+        [name]: value,
+      });
+    };
+
+  
+   const SignupValidate = (regexprops: RegexInterface) => {
+     if (!regexprops.regex.test(regexprops.value)) {
+       seterrorMsg((errorprops) => ({
+         ...errorprops,
+         [regexprops.fieldname]: regexprops.errormessage,
+       }));
+     } else {
+       seterrorMsg((errorprops) => ({
+         ...errorprops,
+         [regexprops.fieldname]: "",
+       }));
+     }
+   };
+   
+      const allFieldisValid = Object.keys(errorMsg).every(
+        (field) => !errorMsg[field as keyof typeof errorMsg]
+      );
+
+   
+     React.useEffect(()=>{
+
+      console.log(formData)
+     },[formData])
+   
+     
+          const HandleSubmit = async (
+            Event: React.FormEvent<HTMLFormElement>
+          ) => {
+            Event.preventDefault();
+
+            if (formData.password !== formData.confirmpassword) {
+              setConfirmpassword("password not match");
+            } else {
+              setConfirmpassword("");
+
+              // const response = await apiResponse.post("/auth/signup", formData);
+
+              // const data = response.data;
+
+              console.log(formData);
+            }
+          };
   return (
     <main className="flex items-center justify-center">
+      <SnackbarProvider
+        autoHideDuration={3000}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      />
+      <div className="grid place-items-center fixed w-screen h-screen z-[-10] bg-black bg-opacity-50 backdrop-blur-2xl inset-0"></div>
       <section
-        className="backdrop-blur-3xl"
+        className=" "
         style={{
-          backgroundImage: `url(/bgauth.jpg)`, // Set background image
+          backgroundImage: `url(/bgauth.png)`, // Set background image
           backgroundSize: "cover", // Make the background image cover the entire element
-          backgroundPosition: "center",
+          backgroundPosition: "top center",
           position: "fixed", // Center the background image
           height: "100vh",
           top: 0,
           left: 0,
-          zIndex: -1,
+          zIndex: -12,
           width: "100vw",
-          filter: "blur(8px)", // Apply blur effect
         }}
       ></section>
       <div className="w-full max-w-md m-auto p-4  h-screen flex flex-col justify-center">
@@ -28,7 +108,7 @@ export default function page() {
             </div>
             <div className="mt-5">
               {/* Form */}
-              <form>
+              <form onSubmit={HandleSubmit}>
                 <div className="grid gap-y-4">
                   {/* Form Group */}
                   <div>
@@ -43,8 +123,20 @@ export default function page() {
                     <div className="relative">
                       <input
                         type="password"
-                        id="newpassword"
-                        name="newpassword"
+                        id="password"
+                        name="password"
+                        onChange={(
+                          event: React.ChangeEvent<HTMLInputElement>
+                        ) => {
+                          handleInputChange(event);
+                          const regexProps: RegexInterface = {
+                            fieldname: "password",
+                            regex: PASSWORD_REGEX,
+                            value: event.target.value,
+                            errormessage: "8+ characters required",
+                          };
+                          SignupValidate(regexProps);
+                        }}
                         className="py-3 border-[1px] px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
                         required
                         aria-describedby="password-error"
@@ -62,12 +154,14 @@ export default function page() {
                         </svg>
                       </div>
                     </div>
-                    <p
-                      className="hidden text-xs text-red-600 mt-2"
-                      id="password-error"
-                    >
-                      8+ characters required
-                    </p>
+                    {errorMsg.password && formData.password && (
+                      <p
+                        className=" text-xs text-red-600 mt-2"
+                        id="password-error"
+                      >
+                        {errorMsg.password}
+                      </p>
+                    )}
                   </div>
                   {/* End Form Group */}
                   {/* Form Group */}
@@ -80,8 +174,20 @@ export default function page() {
                     <div className="relative">
                       <input
                         type="password"
-                        id="password"
-                        name="password"
+                        id="confirmpassword"
+                        name="confirmpassword"
+                        onChange={(
+                          event: React.ChangeEvent<HTMLInputElement>
+                        ) => {
+                          handleInputChange(event);
+                          const regexProps: RegexInterface = {
+                            fieldname: "password",
+                            regex: PASSWORD_REGEX,
+                            value: event.target.value,
+                            errormessage: "",
+                          };
+                          SignupValidate(regexProps);
+                        }}
                         className="py-3 border-[1px] px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
                         required
                         aria-describedby="password-error"
@@ -99,20 +205,46 @@ export default function page() {
                         </svg>
                       </div>
                     </div>
-                    <p
-                      className="hidden text-xs text-red-600 mt-2"
-                      id="password-error"
-                    >
-                      8+ characters required
+                    <p className=" text-xs text-red-600 mt-2">
+                      {confirmpassword}
                     </p>
                   </div>
                   {/* End Form Group */}
 
                   <button
                     type="submit"
-                    className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+                    disabled={!allFieldisValid || loading}
+                    className={`w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent ${
+                      allFieldisValid ? " cursor-pointer" : "cursor-not-allowed"
+                    }  ${
+                      loading
+                        ? "cursor-not-allowed bg-blue-600 opacity-10 "
+                        : "bg-blue-600"
+                    } text-white hover:bg-blue-700 disabled:opacity-50 `}
                   >
-                    Sign in
+                    Update Password
+                    {loading && (
+                      <svg
+                        className="c-button-spinner -ml-1 mr-3 h-4 w-4 animate-spin text-white"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        ></circle>
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        ></path>
+                      </svg>
+                    )}
                   </button>
                   <p className="mt-2 text-sm text-gray-600 text-center">
                     Remeber your password?
