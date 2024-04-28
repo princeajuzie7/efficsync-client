@@ -1,7 +1,7 @@
 export interface AuthInterface {
   username?: string;
   email: string;
-  readonly password: string;
+  readonly password?: string;
 }
 
 export interface RegexInterface {
@@ -13,6 +13,6 @@ export interface RegexInterface {
 
 export interface RegexError {
     email: string;
-    password: string;
+    password?: string;
   
 }
