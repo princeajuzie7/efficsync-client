@@ -49,7 +49,7 @@ const router = useRouter()
 
    verifyEmail()
    
-  },[Emailtoken])
+  },[Emailtoken,router])
   return (
     <div>
 {   loading? <div className='flex justify-center items-center'><HashLoader color="#2563EB" size={100}  style={{width: "100px", height: "100px"}} />

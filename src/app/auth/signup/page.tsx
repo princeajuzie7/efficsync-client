@@ -5,7 +5,10 @@ import { AuthInterface, RegexInterface, RegexError } from "@/types";
 import { EMAIL_REGEX, PASSWORD_REGEX, apiResponse } from "@/utils";
 import { SnackbarProvider, enqueueSnackbar, closeSnackbar } from "notistack";
 
+
 const Page = () => {
+
+
   /**
    * a state for form collection specific for auth signup
    * @param FormData a data that will be sent to the server

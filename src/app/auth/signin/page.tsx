@@ -4,8 +4,12 @@ import Link from "next/link";
 import { AuthInterface, RegexInterface, RegexError } from "@/types";
 import { EMAIL_REGEX, PASSWORD_REGEX, apiResponse } from "@/utils";
 import { SnackbarProvider, enqueueSnackbar, closeSnackbar } from "notistack";
-
+import { useUserContext } from "@/context";
 export default function Page() {
+
+  const { SaveUser } = useUserContext();
+  
+
   /**
    * a state for form collection specific for auth signup
    * @param FormData a data that will be sent to the server
@@ -68,9 +72,12 @@ export default function Page() {
     setLoading(true);
     console.log("FormData", FormData);
     try {
-      const response = await apiResponse.post("auth/signin", FormData);
+      const response = await apiResponse.post("auth/signin", FormData, {
+        withCredentials:true,
+      });
 
       console.log(response.data);
+
       if (response.status === 200) {
         enqueueSnackbar("Account logged in Successfully", {
           variant: "success",
@@ -102,6 +109,7 @@ export default function Page() {
             </button>
           ),
         });
+        SaveUser(response.data)
         setLoading(false);
    
       }

@@ -2,7 +2,10 @@ import axios from "axios"
 
 
 export const apiResponse = axios.create({
-  baseURL: "https://efficsync-server.onrender.com/client/api/",
+  baseURL:
+    process.env.NODE_ENV === "production"
+      ? process.env.NEXT_PUBLIC_LIVE_URL
+      : process.env.NEXT_PUBLIC_LOCAL_URL,
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
@@ -10,4 +13,4 @@ export const apiResponse = axios.create({
   },
 });
 
-export default apiResponse;
+export default apiResponse; 
