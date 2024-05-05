@@ -1,10 +1,13 @@
 "use client";
 import React, { useState } from "react";
 import { Navbar, Sidebar, BottomNav } from "@/components/dashboard";
-
-export default function Layout({ children }: { children: React.ReactNode }) {
+import Signedhoc from "@/helper/hoc/signedhoc";
+import { useUserContext } from "@/context";
+export  function Layout({ children }: { children: React.ReactNode }) {
   const [Timer, setTimer] = React.useState(true);
+  const { user } = useUserContext();
 
+  console.log('userdb', user)
   React.useEffect(() => {
     setTimeout(() => {
       setTimer(false);
@@ -31,3 +34,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     </div>
   );
 }
+
+const layout = Signedhoc(Layout)
+export default layout;

@@ -19,14 +19,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      
-      <PrelineScript />
       <body className={inter.className}>
         <AuthenticatedContextProvider>
-          
-        {children}
-       </AuthenticatedContextProvider>
-        </body>
+          <PrelineScript />
+          {children}
+        </AuthenticatedContextProvider>
+      </body>
     </html>
   );
 }

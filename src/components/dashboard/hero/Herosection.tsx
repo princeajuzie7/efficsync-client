@@ -1,6 +1,8 @@
+"use client"
 import React from "react";
 
 export function Herosection() {
+
   return (
     <div
       style={{

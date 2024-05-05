@@ -7,7 +7,7 @@ import { SnackbarProvider, enqueueSnackbar, closeSnackbar } from "notistack";
 import { useUserContext } from "@/context";
 export default function Page() {
 
-  const { SaveUser } = useUserContext();
+  
   
 
   /**
@@ -109,7 +109,7 @@ export default function Page() {
             </button>
           ),
         });
-        SaveUser(response.data)
+     
         setLoading(false);
    
       }

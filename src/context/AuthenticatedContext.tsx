@@ -1,48 +1,47 @@
 "use client";
 import React from "react";
 import { apiResponse } from "@/utils";
-
-interface User {
-  username: string;
+import HashLoader from "react-spinners/HashLoader";
+export interface User {
   _id: string;
+  username: string;
   email: string;
-
+  userdp: string;
+  emailVerified: boolean;
+  createdAt: number;
+  updatedAt: number;
+  __v: number;
 }
 
 interface AuthenticatedContextInt {
-  user: object;
-  setuser: React.Dispatch<React.SetStateAction<User>>;
+  user: User | null;
+  setuser: React.Dispatch<React.SetStateAction<User | null>>;
   loading: boolean;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  SaveUser: (user: User) => void;
 }
-const AuthenticatedContext = React.createContext<
-  AuthenticatedContextInt 
-  >({} as AuthenticatedContextInt);
-
+const AuthenticatedContext = React.createContext<AuthenticatedContextInt>(
+  {} as AuthenticatedContextInt
+);
 
 export function AuthenticatedContextProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [user, setuser] = React.useState<User>({} as User);
-  const [loading, setLoading] = React.useState<boolean>(false);
- 
-
-  function SaveUser(user: User) {
-  return   setuser(user);
-  }
+  const [user, setuser] = React.useState<User | null>(null);
+  const [loading, setLoading] = React.useState<boolean>(true);
   const fetchCurrentUser = async () => {
+    setLoading(true);
     try {
       const response = await apiResponse.get("user/getactiveuser", {
         withCredentials: true,
       });
       if (response.status === 200) {
-        SaveUser(response.data);
-        console.log(response.data);
+       
+        const userdata = response.data?.user
+        setuser(userdata);
+     
       }
-      console.log(response);
     } catch (error) {
       console.log(error);
     } finally {
@@ -51,28 +50,23 @@ export function AuthenticatedContextProvider({
   };
   React.useEffect(() => {
     fetchCurrentUser();
-  },[]);
+  }, []);
 
   if (loading) {
-    return <div className="flex text-center text-2xl text-green-500">Loading...</div>;
+    return (
+      <div className="flex justify-center items-center h-screen w-full">
+        <HashLoader color="#2563EB" size={50} />
+      </div>
+    );
   }
-
-
   return (
     <AuthenticatedContext.Provider
-      value={{ user, setuser, loading, setLoading, SaveUser }}
+      value={{ user, setuser, loading, setLoading }}
     >
       {children}
     </AuthenticatedContext.Provider>
   );
 }
-
-
-/**
- * 
- * @returns current user for authentication
- * @throws Error if user is not authenticated
- */
 
 export function useUserContext() {
   if (AuthenticatedContext === undefined) {

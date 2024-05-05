@@ -56,7 +56,7 @@ export function VerifyPaasowrdTokenComp() {
         <div className="flex justify-center items-center">
           <HashLoader
             color="#2563EB"
-            size={100}
+            size={50}
             style={{ width: "100px", height: "100px" }}
           />
         </div>

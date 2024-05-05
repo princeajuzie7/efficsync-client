@@ -9,6 +9,19 @@ import { SnackbarProvider, enqueueSnackbar, closeSnackbar } from "notistack";
 const Page = () => {
 
 
+    function getRandomColor() {
+      const letters = "0123456789ABCDEF";
+      let newhex = "";
+      for (let i = 0; i < 6; i++) {
+        newhex += letters[Math.floor(Math.random() * 16)];
+      }
+      while (newhex === "#FFFFFF") console.log(newhex);
+      return newhex;
+    }
+    const [backgroundColor, setBackgroundColor] = React.useState(
+      getRandomColor()
+    );
+  
   /**
    * a state for form collection specific for auth signup
    * @param FormData a data that will be sent to the server
@@ -39,10 +52,14 @@ const Page = () => {
       const newusername: string = value.substring(0, value.indexOf("@"));
       setFullname(newusername);
     }
+     const userdpvalue = `https://eu.ui-avatars.com/api/?name=${
+       FormData.username
+     }&background=${backgroundColor && backgroundColor}&color=ffffff`;
 
     setFormData({
       ...FormData,
       username: fullName,
+      userdp: userdpvalue,
       [name]: value,
     });
   };
@@ -79,10 +96,12 @@ const Page = () => {
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
     setLoading(true);
+     console.log("FormData", FormData);
     try {
       const response = await apiResponse.post("auth/signup", FormData);
 
       console.log(response.data);
+     
       if (response.status === 201) {
         enqueueSnackbar("Account Created Successfully", {
           variant: "success",
@@ -115,7 +134,7 @@ const Page = () => {
           ),
         });
         setLoading(false);
-  
+
         setTimeout(() => {
           setnavigateVerify(true);
         }, 3000);
@@ -123,8 +142,12 @@ const Page = () => {
     } catch (error: any) {
       setLoading(false);
       console.log(error);
-      seterror(error?.response?.data?.message);
-      enqueueSnackbar(error?.response?.data?.message, {
+      const errorresponsehtml = error?.response?.data;
+
+      const start = errorresponsehtml.indexOf("Error: ") + "Error: ".length;
+      const end = errorresponsehtml.indexOf("<br>");
+      const errorMessage = errorresponsehtml.substring(start, end).trim();
+      enqueueSnackbar(errorMessage, {
         variant: "error",
         autoHideDuration: 3000,
         anchorOrigin: {
@@ -156,6 +179,10 @@ const Page = () => {
       });
     }
   };
+
+  const GoogleSign = () => {
+    
+  }
   return (
     <main className="flex items-center justify-center">
       <SnackbarProvider
