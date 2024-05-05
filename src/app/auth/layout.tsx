@@ -18,5 +18,5 @@ import NotSignedhoc from "@/helper/hoc/notSignedhoc";
   );
 }
 
-const layout = NotSignedhoc(Layout);
-export default layout;
+// const layout = NotSignedhoc(Layout);
+export default Layout;
