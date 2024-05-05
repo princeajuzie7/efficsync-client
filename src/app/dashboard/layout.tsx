@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Navbar, Sidebar, BottomNav } from "@/components/dashboard";
 import Signedhoc from "@/helper/hoc/signedhoc";
 import { useUserContext } from "@/context";
-export  function Layout({ children }: { children: React.ReactNode }) {
+  function Layout({ children }: { children: React.ReactNode }) {
   const [Timer, setTimer] = React.useState(true);
   const { user } = useUserContext();
 
