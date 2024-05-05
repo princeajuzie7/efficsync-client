@@ -1,15 +1,26 @@
-"use client"
-import NotSignedhoc from '@/helper/hoc/notSignedhoc'
-import React from 'react'
+"use client";
+import React, { useState } from "react";
 
-export  function layout({children}: {children: React.ReactNode}) {
+import Signedhoc from "@/helper/hoc/signedhoc";
+import { useUserContext } from "@/context";
+export function Layout({ children }: { children: React.ReactNode }) {
+
+
+
+
   return (
-      <div>
-          {children}
+    <div className="z-10">
+      <main
+       
+      >
+       
+
+          <div className=" ">{children}</div>
+         
+      </main>
     </div>
-  )
+  );
 }
 
-const Layout = NotSignedhoc(layout)
-
-export default Layout
+const layout = Signedhoc(Layout);
+export default layout;
