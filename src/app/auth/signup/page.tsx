@@ -5,7 +5,7 @@ import { AuthInterface, RegexInterface, RegexError } from "@/types";
 import { EMAIL_REGEX, PASSWORD_REGEX, apiResponse } from "@/utils";
 import { SnackbarProvider, enqueueSnackbar, closeSnackbar } from "notistack";
 
-
+import { redirect } from "next/navigation";
 const Page = () => {
 
 

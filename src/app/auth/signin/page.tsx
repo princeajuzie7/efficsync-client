@@ -5,6 +5,7 @@ import { AuthInterface, RegexInterface, RegexError } from "@/types";
 import { EMAIL_REGEX, PASSWORD_REGEX, apiResponse } from "@/utils";
 import { SnackbarProvider, enqueueSnackbar, closeSnackbar } from "notistack";
 import { useUserContext } from "@/context";
+import { redirect } from "next/navigation";
 export default function Page() {
 
   
@@ -111,6 +112,7 @@ export default function Page() {
         });
      
         setLoading(false);
+        redirect('/dashboard')
    
       }
     } catch (error: any) {
