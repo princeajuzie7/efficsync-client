@@ -50,7 +50,8 @@ const Page = () => {
     const { name, value } = event.target;
     if (name === "email") {
       const newusername: string = value.substring(0, value.indexOf("@"));
-      setFullname(newusername);
+       const cleanedUsername = newusername.replace(/\d+/g, "");
+      setFullname(cleanedUsername);
     }
      const userdpvalue = `https://eu.ui-avatars.com/api/?name=${
        FormData.username

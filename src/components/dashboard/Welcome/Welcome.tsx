@@ -3,23 +3,26 @@ import React from 'react';
 import Logo from "@/resources/svg/logo.svg";
 import { useUserContext } from '@/context';
 export function Welcome() {
-  const {user} = useUserContext();
+  const { user } = useUserContext();
+  const username = user?.username as any;
+  
+  const cleanedUsername = username.replace(/\d+/g, "");
   return (
     <div className="flex flex-col items-center justify-center h-screen w-screen  gap-4 ease-in-out fixed top-0 left-0 right-0 bottom-0 z-[9999] bg-[#F8F7FD] overflow-hidden scrolltrack">
-    <div className="h-fit bg-black rounded-md  w-24 flex animate-fade-from-top items-center justify-center ">
-      <Image
-        src={Logo}
-        width={100}
-        height={100}
-        alt="logo"
-        draggable={false}
-      />
+      <div className="h-fit bg-black rounded-md  w-24 flex animate-fade-from-top items-center justify-center ">
+        <Image
+          src={Logo}
+          width={100}
+          height={100}
+          alt="logo"
+          draggable={false}
+        />
+      </div>
+      <p className=" w-full text-center animate-fade-from-bottom text-dark text-[20px] ">
+        Good morning, {cleanedUsername}! <br /> Coffee or tea to start your day?
+      </p>
     </div>
-    <p className=" w-full text-center animate-fade-from-bottom text-dark text-[20px] ">
-        Good morning, { user && user?.username}! <br /> Coffee or tea to start your day?
-    </p>
-  </div>
-  )
+  );
 }
 
 
