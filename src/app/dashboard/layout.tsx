@@ -7,7 +7,7 @@ export  function Layout({ children }: { children: React.ReactNode }) {
   const [Timer, setTimer] = React.useState(true);
   const { user } = useUserContext();
 
-  console.log('userdb', user)
+  console.log('userdb',)
   React.useEffect(() => {
     setTimeout(() => {
       setTimer(false);
