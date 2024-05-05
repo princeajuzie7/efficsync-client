@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import NotSignedhoc from "@/helper/hoc/notSignedhoc";
-export  function Layout({ children }: { children: React.ReactNode }) {
+  function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="z-10">
@@ -10,7 +10,7 @@ export  function Layout({ children }: { children: React.ReactNode }) {
       >
        
       
-          <div className=" ">{children}</div>
+          <div >{children}</div>
          
        
       </main>
