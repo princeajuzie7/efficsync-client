@@ -6,6 +6,7 @@ import { EMAIL_REGEX, PASSWORD_REGEX, apiResponse } from "@/utils";
 import { SnackbarProvider, enqueueSnackbar, closeSnackbar } from "notistack";
 import { useUserContext } from "@/context";
 import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 export default function Page() {
 
   
@@ -68,6 +69,8 @@ export default function Page() {
   const allFieldisValid = Object.keys(Errormsg).every(
     (field) => !Errormsg[field as keyof typeof Errormsg]
   );
+
+  const router = useRouter()
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
     setLoading(true);
@@ -111,8 +114,10 @@ export default function Page() {
           ),
         });
      
-        setLoading(false);
-        redirect('/dashboard')
+        setTimeout(() => {
+          window.location.reload()
+          router.push('/dashboard')
+        }, 1000);
    
       }
     } catch (error: any) {
@@ -153,6 +158,8 @@ export default function Page() {
           </button>
         ),
       });
+    } finally {
+           setLoading(false);
     }
   };
   return (

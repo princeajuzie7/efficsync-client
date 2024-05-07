@@ -4,6 +4,10 @@ import {
   WhatsOnYourMind,
   DashboardDraggable,
 } from "@/components/dashboard";
+import InviteTeam from "@/components/dummy/InviteTeam";
+import Setuporganization from "@/components/dummy/setup-organization";
+import Setupteam from "@/components/dummy/Setupteam";
+import Teamsize from "@/components/dummy/Teamsize";
 
 export default function page() {
   
@@ -16,6 +20,10 @@ export default function page() {
         <WhatsOnYourMind />
         <div className=" w-full h-auto ">
           <DashboardDraggable />
+          {/* <Setuporganization /> */}
+          {/* <Teamsize /> */}
+          {/* <Setupteam /> */}
+          {/* <InviteTeam /> */}
         </div>
       </div>
     </div>

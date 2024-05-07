@@ -5,7 +5,8 @@ import { AuthInterface, RegexInterface, RegexError } from "@/types";
 import { EMAIL_REGEX, PASSWORD_REGEX, apiResponse } from "@/utils";
 import { SnackbarProvider, enqueueSnackbar, closeSnackbar } from "notistack";
 
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
+
 const Page = () => {
 
 
@@ -74,7 +75,6 @@ const Page = () => {
    *                   - errormessage: The error message to be displayed if the validation fails.
    * @returns void
    */
-
   function SignuValidate(Regexprops: RegexInterface): void {
     // Check if the value matches the regular expression pattern
     if (!Regexprops.regex.test(Regexprops.value)) {
@@ -181,8 +181,26 @@ const Page = () => {
     }
   };
 
-  const GoogleSign = () => {
+  const GoogleSign = async () => {
+    console.log('google button clicked')
+   
+  
+
+    try {
+
+      window.location.href = "http://localhost:8000/client/api/auth/google";
     
+      //  const googleLoginUrl =;
+      //  const newWindow = window.open(
+      //    googleLoginUrl,
+      //    "_blank",
+      //    "width=500, height=600"
+      //  );
+
+     
+    } catch (error) {
+      console.log("error", error);
+    }
   }
   return (
     <main className="flex items-center justify-center">
@@ -425,6 +443,17 @@ const Page = () => {
                   </p>
                 </div>
               </div>
+              <div className="text-center">
+                <p className="mt-2 text-sm text-gray-600">
+                  Already have an account?
+                  <Link
+                    className="text-blue-600 decoration-2 hover:underline font-medium"
+                    href="/auth/signin"
+                  >
+                    Sign in here
+                  </Link>
+                </p>
+              </div>
             </div>
           </div>
         ) : (
@@ -443,6 +472,7 @@ const Page = () => {
                 <button
                   type="button"
                   className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
+                  onClick={GoogleSign}
                 >
                   <svg
                     className="w-4 h-auto"
